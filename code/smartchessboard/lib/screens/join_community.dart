@@ -57,6 +57,7 @@ class _JoinCommunityScreenState extends State<JoinCommunityScreen> {
           leading: IconButton(
             onPressed: () {
               Navigator.pop(context);
+              _socketMethods.communityDisconnect();
             },
             icon: Icon(
               Icons.arrow_back_ios,
@@ -152,7 +153,8 @@ class _JoinCommunityScreenState extends State<JoinCommunityScreen> {
                                       // Handle the user's choice (e.g., initiate a game)
                                       _socketMethods.askCommunityGame(
                                           onlinePlayers[index].profileId);
-                                      Navigator.of(context).pop(); // Close the dialog
+                                      Navigator.of(context)
+                                          .pop(); // Close the dialog
                                       // Add your logic to initiate a game here
                                       print(
                                           "Initiate a game with ${onlinePlayers[index].nickname}");
@@ -161,7 +163,8 @@ class _JoinCommunityScreenState extends State<JoinCommunityScreen> {
                                   ),
                                   TextButton(
                                     onPressed: () {
-                                      Navigator.of(context).pop(); // Close the dialog
+                                      Navigator.of(context)
+                                          .pop(); // Close the dialog
                                     },
                                     child: Text("No"),
                                   ),
@@ -171,7 +174,6 @@ class _JoinCommunityScreenState extends State<JoinCommunityScreen> {
                           );
                         },
                         child: ListTile(
-                          
                           tileColor: Color.fromARGB(255, 240, 240, 240),
                           title: Text(
                             '${index + 1}. ${onlinePlayers[index].nickname}',
@@ -188,9 +190,13 @@ class _JoinCommunityScreenState extends State<JoinCommunityScreen> {
                   // Leaderboard
                   ListView(
                     children: [
-                      ListTile(tileColor: Color.fromARGB(255, 240, 240, 240),title: Text("Player A - Score: 100")),
-                      Padding(padding:EdgeInsets.only(bottom: 5.0)),
-                      ListTile(tileColor: Color.fromARGB(255, 240, 240, 240),title: Text("Player B - Score: 90")),
+                      ListTile(
+                          tileColor: Color.fromARGB(255, 240, 240, 240),
+                          title: Text("Player A - Score: 100")),
+                      Padding(padding: EdgeInsets.only(bottom: 5.0)),
+                      ListTile(
+                          tileColor: Color.fromARGB(255, 240, 240, 240),
+                          title: Text("Player B - Score: 90")),
                       // Add more leaderboard items
                     ],
                   ),
