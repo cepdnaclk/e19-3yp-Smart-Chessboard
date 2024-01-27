@@ -89,7 +89,7 @@ io.on("connection",(socket)=>{
         try {
             let eprofile =await Eprofile.findOne({"profileId":profileId});
             console.log(eprofile);
-            io.to(eprofile.socketId).emit('communityGameAcceptorWithdraw', {"profileId":profileId});
+            io.to(eprofile.socketId).emit('communityGameAcceptorWithdraw', {"profileId":profileId,"nickname":eprofile.nickname});
 
         } catch (e) {
             console.log(e);
