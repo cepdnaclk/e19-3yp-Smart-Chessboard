@@ -51,10 +51,13 @@ class _JoinCommunityScreenState extends State<JoinCommunityScreen> {
       },
       child: Scaffold(
         appBar: AppBar(
-          title: Text("Your App"),
+          title: Text("Community"),
         ),
         body: Column(
           children: [
+            Padding(
+              padding: EdgeInsets.only(top: 10.0),
+            ),
             // Single scrollable button to switch between Online Players and Leaderboard
             SingleChildScrollView(
               scrollDirection: Axis.horizontal,
@@ -67,7 +70,17 @@ class _JoinCommunityScreenState extends State<JoinCommunityScreen> {
                           duration: Duration(milliseconds: 300),
                           curve: Curves.easeInOut);
                     },
-                    child: Text("Online Players"),
+                    style: ElevatedButton.styleFrom(
+                      primary: Color(
+                          0xff0095FF), // Set the background color of the button
+                    ),
+                    child: Text(
+                      "Online Players",
+                      style: TextStyle(color: Colors.white),
+                    ),
+                  ),
+                  Padding(
+                    padding: EdgeInsets.symmetric(horizontal: 16.0),
                   ),
                   ElevatedButton(
                     onPressed: () {
@@ -75,12 +88,22 @@ class _JoinCommunityScreenState extends State<JoinCommunityScreen> {
                           duration: Duration(milliseconds: 300),
                           curve: Curves.easeInOut);
                     },
-                    child: Text("Leaderboard"),
+                    style: ElevatedButton.styleFrom(
+                      primary: Color(
+                          0xff0095FF), // Set the background color of the button
+                    ),
+                    child: Text(
+                      "Leaderboard",
+                      style: TextStyle(color: Colors.white),
+                    ),
                   ),
                 ],
               ),
             ),
             // PageView to switch between Online Players and Leaderboard
+            Padding(
+              padding: EdgeInsets.only(bottom: 20.0),
+            ),
             Expanded(
               child: PageView(
                 controller: _pageController,
@@ -125,7 +148,15 @@ class _JoinCommunityScreenState extends State<JoinCommunityScreen> {
                           );
                         },
                         child: ListTile(
-                          title: Text(onlinePlayers[index].nickname),
+                          tileColor: Color.fromARGB(255, 240, 240, 240),
+                          title: Text(
+                            textAlign: TextAlign.center,
+                            onlinePlayers[index].nickname,
+                            style: TextStyle(
+                              color: Color.fromARGB(255, 47, 47, 47),
+                              fontSize: 25,
+                            ),
+                          ),
                         ),
                       );
                     },
