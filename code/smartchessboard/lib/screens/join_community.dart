@@ -34,8 +34,8 @@ class _JoinCommunityScreenState extends State<JoinCommunityScreen> {
     super.dispose();
   }
 
-  void run(String a) {
-    print(a);
+  void run(String nickname) {
+    print(nickname);
   }
 
   @override
