@@ -5,6 +5,7 @@ import 'package:smartchessboard/provider/move_data_provider.dart';
 import 'package:smartchessboard/provider/room_data_provider.dart';
 import 'package:smartchessboard/resources/socket_client.dart';
 import 'package:smartchessboard/screens/game_screen.dart';
+import 'package:smartchessboard/screens/main_menu.dart';
 
 class SocketMethods {
   final _socketClient = SocketClient.instance.socket!;
@@ -71,19 +72,6 @@ class SocketMethods {
     _socketClient.emit('communityDisconnect');
   }
 
-  //main-menu screen
-  void initializeApp(String profileId) {
-    _socketClient.emit('init', {"profileId": profileId});
-  }
-
-  void initializeAppListener(BuildContext context) {
-    _socketClient.on('initDone', (data) {
-      Provider.of<ProfileDataProvider>(context, listen: false)
-          .updateMyProfile(data);
-      _socketClient.off('initDone');
-    });
-  }
-
   //game-menu-screen
   void createOrJoinRoom() {
     _socketClient.emit("createOrJoinRoom", {
@@ -105,5 +93,46 @@ class SocketMethods {
 
   void gameMenuDisconnect() {
     _socketClient.emit('gameMenuDisconnect');
+  }
+
+  //login screen
+  void login(String email, String password) {
+    _socketClient.emit("login", {'email': email, 'password': password});
+  }
+
+  void loginListener(BuildContext context) {
+    _socketClient.on('loginSuccess', (data) {
+      // print(data);
+      Provider.of<ProfileDataProvider>(context, listen: false)
+          .updateMyProfile(data);
+      _socketClient.off('loginSuccess');
+      Navigator.pushNamedAndRemoveUntil(
+        context,
+        MainMenu.routeName,
+        (route) => false,
+      );
+    });
+  }
+
+  //signup screen
+  void signup(
+      String nickname, String email, String password, String confirmPassword) {
+    if (password == confirmPassword) {
+      _socketClient.emit("signup",
+          {'nickname': nickname, 'email': email, 'password': password});
+    }
+  }
+
+  void signupListener(BuildContext context) {
+    _socketClient.on('signupSuccess', (data) {
+      Provider.of<ProfileDataProvider>(context, listen: false)
+          .updateMyProfile(data);
+      _socketClient.off('signupSuccess');
+      Navigator.pushNamedAndRemoveUntil(
+        context,
+        MainMenu.routeName,
+        (route) => false,
+      );
+    });
   }
 }

@@ -29,8 +29,6 @@ class MainMenu extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    _socketMethods.initializeApp("12");
-    _socketMethods.initializeAppListener(context);
     // return AuthenticatedView(
     return Scaffold(
       body: SafeArea(

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:smartchessboard/resources/socket_methods.dart';
 import 'package:smartchessboard/screens/signup.dart';
 import 'package:smartchessboard/screens/main_menu.dart';
 
@@ -10,6 +11,7 @@ class LoginPage extends StatefulWidget {
 }
 
 class _LoginPageState extends State<LoginPage> {
+  final SocketMethods _socketMethods = SocketMethods();
   TextEditingController emailController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
 
@@ -27,6 +29,12 @@ class _LoginPageState extends State<LoginPage> {
 
   void GoMainMenu(BuildContext context) {
     Navigator.pushNamed(context, MainMenu.routeName);
+  }
+
+  @override
+  void initState() {
+    _socketMethods.loginListener(context);
+    super.initState();
   }
 
   @override
@@ -98,7 +106,8 @@ class _LoginPageState extends State<LoginPage> {
                         minWidth: 250,
                         height: 60,
                         onPressed: () {
-                          GoMainMenu(context);
+                          _socketMethods.login(emailController.text.trim(),
+                              passwordController.text.trim());
                         },
                         color: Color(0xff0095FF),
                         elevation: 0,

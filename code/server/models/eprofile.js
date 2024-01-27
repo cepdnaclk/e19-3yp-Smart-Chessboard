@@ -10,6 +10,12 @@ const eprofileSchema =new mongoose.Schema({
     socketId: {
         type:String, 
     },
+    email: {
+        type:String,
+    },
+    password: {
+        type:String,
+    },
 
     });
 
