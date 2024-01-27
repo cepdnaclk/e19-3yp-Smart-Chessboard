@@ -1,18 +1,10 @@
-import 'dart:io';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
-import 'package:smartchessboard/provider/profile_data_provider.dart';
-import 'package:smartchessboard/provider/room_data_provider.dart';
-import 'package:smartchessboard/resources/socket_methods.dart';
 import 'package:smartchessboard/screens/game_menu_screen.dart';
-import 'package:smartchessboard/screens/game_screen.dart';
 import 'package:smartchessboard/screens/join_community.dart';
-import 'package:smartchessboard/screens/play_friends_screen.dart';
 import 'package:smartchessboard/screens/user_guide.dart';
 // import 'package:amplify_authenticator/amplify_authenticator.dart';
 
 class MainMenu extends StatelessWidget {
-  final SocketMethods _socketMethods = SocketMethods();
   static String routeName = '/main-menu';
 
   void ReadUserGuide(BuildContext context) {
