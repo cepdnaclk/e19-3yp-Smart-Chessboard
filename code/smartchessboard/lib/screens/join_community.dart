@@ -43,17 +43,21 @@ class _JoinCommunityScreenState extends State<JoinCommunityScreen> {
                             builder: (BuildContext context) {
                               return AlertDialog(
                                 title: Text(
-                                    "${nickname}?"+" has sent invitation"),
+                                    "${nickname}"+" has sent invitation"),
                                 actions: [
                                   TextButton(
                                     onPressed: () {
                                       _socketMethods.communityGameAcceptorWithdrawReply(profileId, true);
+                                      Navigator.of(context)
+                                          .pop();
                                     },
                                     child: Text("Accept"),
                                   ),
                                   TextButton(
                                     onPressed: () {
                                       _socketMethods.communityGameAcceptorWithdrawReply(profileId, false);
+                                      Navigator.of(context)
+                                          .pop();
                                     },
                                     child: Text("Reject"),
                                   ),
