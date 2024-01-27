@@ -1,10 +1,25 @@
 import 'package:flutter/material.dart';
 import 'package:smartchessboard/screens/signup.dart';
-//import 'package:smartchessboard/screens/main_menu_screen.dart';
 import 'package:smartchessboard/screens/main_menu.dart';
 
-class LoginPage extends StatelessWidget {
+class LoginPage extends StatefulWidget {
   static String routeName = '/login';
+
+  @override
+  _LoginPageState createState() => _LoginPageState();
+}
+
+class _LoginPageState extends State<LoginPage> {
+  TextEditingController emailController = TextEditingController();
+  TextEditingController passwordController = TextEditingController();
+
+  @override
+  void dispose() {
+    // Dispose of the controllers when the widget is disposed
+    emailController.dispose();
+    passwordController.dispose();
+    super.dispose();
+  }
 
   void SingUp(BuildContext context) {
     Navigator.pushNamed(context, SignupPage.routeName);
@@ -21,7 +36,6 @@ class LoginPage extends StatelessWidget {
       backgroundColor: Colors.white,
       appBar: AppBar(
         elevation: 0,
-        //brightness: Brightness.light,
         backgroundColor: Colors.white,
         leading: IconButton(
           onPressed: () {
@@ -41,93 +55,98 @@ class LoginPage extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: <Widget>[
             Expanded(
-                child: Column(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: <Widget>[
-                Column(
-                  children: <Widget>[
-                    Text(
-                      "Login",
-                      style:
-                          TextStyle(fontSize: 30, fontWeight: FontWeight.bold),
-                    ),
-                    SizedBox(
-                      height: 20,
-                    ),
-                    Text(
-                      "Login to your account",
-                      style: TextStyle(fontSize: 15, color: Colors.grey[700]),
-                    )
-                  ],
-                ),
-                Padding(
-                  padding: EdgeInsets.symmetric(horizontal: 40),
-                  child: Container(
-                    width: 350.0,
-                    child: Column(
-                      children: <Widget>[
-                        inputFile(label: "Email"),
-                        inputFile(label: "Password", obscureText: true)
-                      ],
-                    ),
-                  ),
-                ),
-                Padding(
-                  padding: EdgeInsets.symmetric(horizontal: 40),
-                  child: Container(
-                    padding: EdgeInsets.only(top: 3, left: 3),
-                    child: MaterialButton(
-                      minWidth: 250,
-                      height: 60,
-                      onPressed: () {
-                        GoMainMenu(context);
-                      },
-                      color: Color(0xff0095FF),
-                      elevation: 0,
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(50),
-                      ),
-                      child: Text(
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: <Widget>[
+                  Column(
+                    children: <Widget>[
+                      Text(
                         "Login",
                         style: TextStyle(
-                          fontWeight: FontWeight.w600,
-                          fontSize: 15,
-                          color: Colors.white,
+                            fontSize: 30, fontWeight: FontWeight.bold),
+                      ),
+                      SizedBox(
+                        height: 20,
+                      ),
+                      Text(
+                        "Login to your account",
+                        style: TextStyle(fontSize: 15, color: Colors.grey[700]),
+                      )
+                    ],
+                  ),
+                  Padding(
+                    padding: EdgeInsets.symmetric(horizontal: 40),
+                    child: Container(
+                      width: 350.0,
+                      child: Column(
+                        children: <Widget>[
+                          inputFile(
+                              label: "Email", controller: emailController),
+                          inputFile(
+                              label: "Password",
+                              obscureText: true,
+                              controller: passwordController)
+                        ],
+                      ),
+                    ),
+                  ),
+                  Padding(
+                    padding: EdgeInsets.symmetric(horizontal: 40),
+                    child: Container(
+                      padding: EdgeInsets.only(top: 3, left: 3),
+                      child: MaterialButton(
+                        minWidth: 250,
+                        height: 60,
+                        onPressed: () {
+                          GoMainMenu(context);
+                        },
+                        color: Color(0xff0095FF),
+                        elevation: 0,
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(50),
+                        ),
+                        child: Text(
+                          "Login",
+                          style: TextStyle(
+                            fontWeight: FontWeight.w600,
+                            fontSize: 15,
+                            color: Colors.white,
+                          ),
                         ),
                       ),
                     ),
                   ),
-                ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: <Widget>[
-                    Text("Don't have an account?"),
-                    MaterialButton(
-                      minWidth: 10,
-                      hoverColor: Colors.white,
-                      highlightColor: Colors.white,
-                      child: Text(" Sign up",
-                          style: TextStyle(
-                            fontWeight: FontWeight.w600,
-                            fontSize: 15,
-                          )),
-                      onPressed: () {
-                        SingUp(context);
-                      },
-                    ),
-                  ],
-                ),
-                Container(
-                  padding: EdgeInsets.only(top: 100, bottom: 50),
-                  height: 300,
-                  decoration: BoxDecoration(
-                    image: DecorationImage(
-                        image: AssetImage("assets/loginbackground.png"),
-                        fit: BoxFit.fitHeight),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: <Widget>[
+                      Text("Don't have an account?"),
+                      MaterialButton(
+                        minWidth: 10,
+                        hoverColor: Colors.white,
+                        highlightColor: Colors.white,
+                        child: Text(" Sign up",
+                            style: TextStyle(
+                              fontWeight: FontWeight.w600,
+                              fontSize: 15,
+                            )),
+                        onPressed: () {
+                          SingUp(context);
+                        },
+                      ),
+                    ],
                   ),
-                )
-              ],
-            ))
+                  Container(
+                    padding: EdgeInsets.only(top: 100, bottom: 50),
+                    height: 300,
+                    decoration: BoxDecoration(
+                      image: DecorationImage(
+                          image: AssetImage("assets/loginbackground.png"),
+                          fit: BoxFit.fitHeight),
+                    ),
+                  )
+                ],
+              ),
+            )
           ],
         ),
       ),
@@ -135,8 +154,8 @@ class LoginPage extends StatelessWidget {
   }
 }
 
-// we will be creating a widget for text field
-Widget inputFile({label, obscureText = false}) {
+Widget inputFile(
+    {label, obscureText = false, required TextEditingController controller}) {
   return Column(
     crossAxisAlignment: CrossAxisAlignment.start,
     children: <Widget>[
@@ -149,6 +168,7 @@ Widget inputFile({label, obscureText = false}) {
         height: 5,
       ),
       TextField(
+        controller: controller,
         obscureText: obscureText,
         decoration: InputDecoration(
             contentPadding: EdgeInsets.symmetric(vertical: 0, horizontal: 10),
