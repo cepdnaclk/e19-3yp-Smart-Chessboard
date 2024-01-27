@@ -55,7 +55,7 @@ class SocketMethods {
   void communityGameAcceptorWithdraw(BuildContext context) {
     _socketClient.on('communityGameAcceptorWithdraw', (data) {
       if (onCommunityGameAcceptorWithdraw != null) {
-        onCommunityGameAcceptorWithdraw!(data["nickname"]);
+        onCommunityGameAcceptorWithdraw!(data["nickname"], data["profileId"]);
       }
     });
   }
