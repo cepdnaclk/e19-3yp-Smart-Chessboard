@@ -5,7 +5,6 @@ import 'package:smartchessboard/screens/user_guide.dart';
 // import 'package:amplify_authenticator/amplify_authenticator.dart';
 
 class MainMenu extends StatelessWidget {
-  // final SocketMethods _socketMethods = SocketMethods();
   static String routeName = '/main-menu';
 
   void ReadUserGuide(BuildContext context) {
