@@ -1,3 +1,5 @@
+import 'dart:ffi';
+
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:smartchessboard/provider/profile_data_provider.dart';
@@ -57,6 +59,19 @@ class SocketMethods {
       if (onCommunityGameAcceptorWithdraw != null) {
         onCommunityGameAcceptorWithdraw!(data["nickname"], data["profileId"]);
       }
+    });
+  }
+
+  void communityGameAcceptorWithdrawReply(String profileId, Bool reply) {
+    _socketClient.emit("communityGameAcceptorWithdrawReply",
+        {'profileId': profileId, 'accept': reply});
+  }
+
+  void initCommunityGame(BuildContext context) {
+    _socketClient.on('initCommunity', (room) {
+      Provider.of<RoomDataProvider>(context, listen: false)
+          .updateRoomData(room);
+      Navigator.pushNamed(context, GameScreen.routeName);
     });
   }
 
