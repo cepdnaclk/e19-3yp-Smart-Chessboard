@@ -62,7 +62,7 @@ class SocketMethods {
     });
   }
 
-  void communityGameAcceptorWithdrawReply(String profileId, Bool reply) {
+  void communityGameAcceptorWithdrawReply(String profileId, bool reply) {
     _socketClient.emit("communityGameAcceptorWithdrawReply",
         {'profileId': profileId, 'accept': reply});
   }
