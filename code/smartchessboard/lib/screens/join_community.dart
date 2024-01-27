@@ -37,6 +37,30 @@ class _JoinCommunityScreenState extends State<JoinCommunityScreen> {
   void run(String nickname, String profileId) {
     print(nickname);
     print(profileId);
+
+                          showDialog(
+                            context: context,
+                            builder: (BuildContext context) {
+                              return AlertDialog(
+                                title: Text(
+                                    "${nickname}?"+" has sent invitation"),
+                                actions: [
+                                  TextButton(
+                                    onPressed: () {
+                                      _socketMethods.communityGameAcceptorWithdrawReply(profileId, true);
+                                    },
+                                    child: Text("Accept"),
+                                  ),
+                                  TextButton(
+                                    onPressed: () {
+                                      _socketMethods.communityGameAcceptorWithdrawReply(profileId, false);
+                                    },
+                                    child: Text("Reject"),
+                                  ),
+                                ],
+                              );
+                            },
+                          );
   }
 
   @override
@@ -175,6 +199,7 @@ class _JoinCommunityScreenState extends State<JoinCommunityScreen> {
                           );
                         },
                         child: ListTile(
+                          
                           tileColor: Color.fromARGB(255, 240, 240, 240),
                           title: Text(
                             '${index + 1}. ${onlinePlayers[index].nickname}',
