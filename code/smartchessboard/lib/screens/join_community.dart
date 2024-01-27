@@ -15,6 +15,7 @@ class JoinCommunityScreen extends StatefulWidget {
 class _JoinCommunityScreenState extends State<JoinCommunityScreen> {
   final SocketMethods _socketMethods = SocketMethods();
   late PageController _pageController;
+  int currentPageIndex = 0; // Added variable to track the current page
 
   @override
   void initState() {
@@ -23,7 +24,7 @@ class _JoinCommunityScreenState extends State<JoinCommunityScreen> {
     _socketMethods.listenCommunity(context);
     _socketMethods.communityGameAcceptorWithdraw(context);
     _socketMethods.onCommunityGameAcceptorWithdraw = run;
-    _pageController = PageController(initialPage: 0);
+    _pageController = PageController(initialPage: currentPageIndex);
   }
 
   @override
@@ -43,7 +44,7 @@ class _JoinCommunityScreenState extends State<JoinCommunityScreen> {
         Provider.of<ProfileDataProvider>(context);
     int length = communityDataProvider.onlineProfilesData!.length;
     List<Profile> onlinePlayers = communityDataProvider.onlineProfilesData!;
-    PageController _pageController = PageController(initialPage: 0);
+
     return WillPopScope(
       onWillPop: () async {
         _socketMethods.communityDisconnect();
@@ -51,7 +52,18 @@ class _JoinCommunityScreenState extends State<JoinCommunityScreen> {
       },
       child: Scaffold(
         appBar: AppBar(
-          title: Text("Community"),
+          elevation: 0,
+          backgroundColor: Colors.white,
+          leading: IconButton(
+            onPressed: () {
+              Navigator.pop(context);
+            },
+            icon: Icon(
+              Icons.arrow_back_ios,
+              size: 20,
+              color: Colors.black,
+            ),
+          ),
         ),
         body: Column(
           children: [
@@ -69,10 +81,14 @@ class _JoinCommunityScreenState extends State<JoinCommunityScreen> {
                       _pageController.animateToPage(0,
                           duration: Duration(milliseconds: 300),
                           curve: Curves.easeInOut);
+                      setState(() {
+                        currentPageIndex = 0; // Update the current page index
+                      });
                     },
                     style: ElevatedButton.styleFrom(
-                      primary: Color(
-                          0xff0095FF), // Set the background color of the button
+                      primary: currentPageIndex == 0
+                          ? Colors.grey // Change color if current page
+                          : Color(0xff0095FF),
                     ),
                     child: Text(
                       "Online Players",
@@ -87,10 +103,14 @@ class _JoinCommunityScreenState extends State<JoinCommunityScreen> {
                       _pageController.animateToPage(1,
                           duration: Duration(milliseconds: 300),
                           curve: Curves.easeInOut);
+                      setState(() {
+                        currentPageIndex = 1; // Update the current page index
+                      });
                     },
                     style: ElevatedButton.styleFrom(
-                      primary: Color(
-                          0xff0095FF), // Set the background color of the button
+                      primary: currentPageIndex == 1
+                          ? Colors.grey // Change color if current page
+                          : Color(0xff0095FF),
                     ),
                     child: Text(
                       "Leaderboard",
@@ -107,6 +127,11 @@ class _JoinCommunityScreenState extends State<JoinCommunityScreen> {
             Expanded(
               child: PageView(
                 controller: _pageController,
+                onPageChanged: (index) {
+                  setState(() {
+                    currentPageIndex = index; // Update the current page index
+                  });
+                },
                 children: [
                   // Online Players
                   ListView.builder(
@@ -127,8 +152,7 @@ class _JoinCommunityScreenState extends State<JoinCommunityScreen> {
                                       // Handle the user's choice (e.g., initiate a game)
                                       _socketMethods.askCommunityGame(
                                           onlinePlayers[index].profileId);
-                                      Navigator.of(context)
-                                          .pop(); // Close the dialog
+                                      Navigator.of(context).pop(); // Close the dialog
                                       // Add your logic to initiate a game here
                                       print(
                                           "Initiate a game with ${onlinePlayers[index].nickname}");
@@ -137,8 +161,7 @@ class _JoinCommunityScreenState extends State<JoinCommunityScreen> {
                                   ),
                                   TextButton(
                                     onPressed: () {
-                                      Navigator.of(context)
-                                          .pop(); // Close the dialog
+                                      Navigator.of(context).pop(); // Close the dialog
                                     },
                                     child: Text("No"),
                                   ),
@@ -148,13 +171,14 @@ class _JoinCommunityScreenState extends State<JoinCommunityScreen> {
                           );
                         },
                         child: ListTile(
+                          
                           tileColor: Color.fromARGB(255, 240, 240, 240),
                           title: Text(
+                            '${index + 1}. ${onlinePlayers[index].nickname}',
                             textAlign: TextAlign.center,
-                            onlinePlayers[index].nickname,
                             style: TextStyle(
                               color: Color.fromARGB(255, 47, 47, 47),
-                              fontSize: 25,
+                              fontSize: 15,
                             ),
                           ),
                         ),
@@ -164,8 +188,9 @@ class _JoinCommunityScreenState extends State<JoinCommunityScreen> {
                   // Leaderboard
                   ListView(
                     children: [
-                      ListTile(title: Text("Player A - Score: 100")),
-                      ListTile(title: Text("Player B - Score: 90")),
+                      ListTile(tileColor: Color.fromARGB(255, 240, 240, 240),title: Text("Player A - Score: 100")),
+                      Padding(padding:EdgeInsets.only(bottom: 5.0)),
+                      ListTile(tileColor: Color.fromARGB(255, 240, 240, 240),title: Text("Player B - Score: 90")),
                       // Add more leaderboard items
                     ],
                   ),
