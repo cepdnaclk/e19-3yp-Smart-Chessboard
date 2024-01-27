@@ -28,22 +28,6 @@ let room;
 
 io.on("connection",(socket)=>{
     console.log("IO connection established");
-    socket.on('init', async ({profileId}) => {
-        try {
-            console.log(profileId);
-            let eprofile =await Eprofile.findOne({"profileId":profileId});
-            if(eprofile){
-                eprofile.socketId=socket.id;
-            }else{
-                eprofile =new Eprofile({"profileId":profileId,"socketId":socket.id});
-                }
-            await eprofile.save();
-            socket.emit('initDone',eprofile);
-        } catch (e) {
-            console.log(e);
-        }
-    });
-
     socket.on('disconnect', async () => {
         try {
             console.log("Disconnect");
@@ -125,6 +109,38 @@ io.on("connection",(socket)=>{
             onlineCommunityPlayers.push(socket.id);
             let eprofiles = await Eprofile.find({ socketId: { $in: onlineCommunityPlayers } });
             io.emit('community', eprofiles);
+        } catch (e) {
+            console.log(e);
+        }
+    });
+
+    //login screen
+    socket.on('login', async ({email,password}) => {
+        try {
+            console.log(email,password);
+            let eprofile =await Eprofile.findOne({"email":email});
+            if(eprofile && eprofile.password==password){
+                eprofile.socketId=socket.id;
+                await eprofile.save();
+                socket.emit('loginSuccess',eprofile);
+            }
+        } catch (e) {
+            console.log(e);
+        }
+    });
+
+    //signup screen
+    socket.on('signup', async ({nickname,email,password}) => {
+        try {
+            if(nickname.length==0 || email.length==0 || password.length==0){}else{
+            let eprofile =await Eprofile.findOne({"email":email});
+            if(!eprofile){
+                eprofile =new Eprofile({"nickname":nickname,"email":email,"password":password,"socketId":socket.id,"profileId":email+nickname});
+                await eprofile.save();
+                socket.emit('signupSuccess',eprofile);
+                console.log(eprofile);
+            }
+        }
         } catch (e) {
             console.log(e);
         }
