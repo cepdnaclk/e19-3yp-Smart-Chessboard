@@ -114,6 +114,13 @@ io.on("connection",(socket)=>{
             console.log(e);
         }
     });
+    socket.on('communityGameAcceptorWithdrawReply', async () => {
+        try {
+            console.log("fuck");
+        } catch (e) {
+            console.log(e);
+        }
+    });
 
     //login screen
     socket.on('login', async ({email,password}) => {

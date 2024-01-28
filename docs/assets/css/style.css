@@ -221,9 +221,16 @@ h6 {
 --------------------------------------------------------------*/
 .constructions .card-item {
   border: 1px solid rgba(82, 86, 94, 0.2);
-  background: #fff;
+  background: #fff; /* Default background color */
   position: relative;
-  border-radius: 0;
+  border-radius: 10px; /* Rounded corners */
+  overflow: hidden; /* Ensure overflow content is hidden */
+  transition: background-color 0.3s ease, transform 0.3s ease; /* Smooth transitions */
+}
+
+.constructions .card-item:hover {
+  background: #009961; /* Background color on hover */
+  transform: scale(1.008); /* Scale the card on hover */
 }
 
 .constructions .card-item .card-bg {
@@ -242,11 +249,21 @@ h6 {
   font-size: 20px;
   margin-bottom: 15px;
   color: var(--color-secondary);
+  transition: color 0.3s ease; /* Smooth transition for text color */
+}
+
+.constructions .card-item:hover h4 {
+  color: #fff; /* Text color on hover */
 }
 
 .constructions .card-item p {
   color: var(--color-secondary);
   margin: 0;
+  transition: color 0.3s ease; /* Smooth transition for text color */
+}
+
+.constructions .card-item:hover p {
+  color: #fff; /* Text color on hover */
 }
 
 table {
@@ -263,6 +280,9 @@ th, td {
 th {
   background-color: #f2f2f2;
 }
+
+
+
 
 
 
@@ -922,20 +942,21 @@ section {
 --------------------------------------------------------------*/
 .clients {
   padding-top: 30px;
+  border-radius: 10px; 
 }
 
-.clients .clients-wrap {
+/* .clients .clients-wrap {
   border-top: 1px solid #e7e7e7;
   border-left: 1px solid #e7e7e7;
-}
+} */
 
 .clients .client-logo {
   padding: 64px;
   display: flex;
   justify-content: center;
   align-items: center;
-  border-right: 1px solid #e7e7e7;
-  border-bottom: 1px solid #e7e7e7;
+  /* border-right: 1px solid #e7e7e7;
+  border-bottom: 1px solid #e7e7e7; */
   overflow: hidden;
   background: #fff;
   height: 140px;
@@ -1163,6 +1184,96 @@ section {
 .portfolio-details .portfolio-description p {
   padding: 0;
 }
+
+/*--------------------------------------------------------------
+# Featured
+--------------------------------------------------------------*/
+.featured {
+  position: relative;
+  z-index: 2;
+  background-color: #f9f9f9;
+}
+
+.featured .icon-box {
+  padding: 40px 30px;
+  box-shadow: 0px 2px 15px rgba(0, 0, 0, 0.15);
+  border-radius: 10px;
+  background: #fff;
+  transition: all ease-in-out 0.3s;
+  height: 100%;
+}
+
+.featured .icon-box i {
+  color: #009961;
+  font-size: 42px;
+  margin-bottom: 15px;
+  display: block;
+  line-height: 0;
+}
+
+.featured .icon-box h3 {
+  font-weight: 700;
+  margin-bottom: 15px;
+  font-size: 20px;
+}
+
+.featured .icon-box h3 a {
+  color: #545454;
+  transition: 0.3s;
+}
+
+.featured .icon-box p {
+  color: #545454;
+  line-height: 24px;
+  font-size: 14px;
+  margin-bottom: 0;
+}
+
+.featured .icon-box:hover {
+  background: #009961;
+}
+
+.featured .icon-box:hover i,
+.featured .icon-box:hover h3 a,
+.featured .icon-box:hover p {
+  color: #fff;
+}
+
+/*--------------------------------------------------------------
+# Security
+--------------------------------------------------------------*/
+.about .content h3 {
+  font-weight: 600;
+  font-size: 26px;
+  color: #545454;
+}
+
+.about .content ul {
+  list-style: none;
+  padding: 0;
+}
+
+.about .content ul li {
+  padding-bottom: 0px;
+}
+
+.about .content ul i {
+  font-size: 10px;
+  padding-right: 10px;
+  color: #009961;
+}
+
+.about .content p:last-child {
+  margin-bottom: 0;
+}
+
+/*--------------------------------------------------------------
+# Model
+--------------------------------------------------------------*/
+/* .model {
+  background-color: #f9f9f9;
+} */
+
 
 /*--------------------------------------------------------------
 # Pricing
@@ -1615,11 +1726,11 @@ section {
   align-items: center; /* Align items vertically in the center */
   text-decoration: none;
   margin-bottom: 10px;
-  background: #009961;
+  /* background: #009961; */
   color: #fff;
   line-height: 1;
   padding: 8px 12px; /* Adjust padding for better spacing */
-  border-radius: 50%;
+  border-radius: 25px;
   transition: 0.3s;
 }
 
