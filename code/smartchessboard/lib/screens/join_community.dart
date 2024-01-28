@@ -227,7 +227,7 @@ class _JoinCommunityScreenState extends State<JoinCommunityScreen> {
                       // ListTile(
                       //     tileColor: Color.fromARGB(255, 240, 240, 240),
                       //     title: Text("Player B - Score: 90")),
-                      // Add more leaderboard items
+                      // //Add more leaderboard items
                     ],
                   ),
                 ],
