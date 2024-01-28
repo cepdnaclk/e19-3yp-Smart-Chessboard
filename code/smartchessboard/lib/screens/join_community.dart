@@ -220,13 +220,13 @@ class _JoinCommunityScreenState extends State<JoinCommunityScreen> {
                   // Leaderboard
                   ListView(
                     children: [
-                      ListTile(
-                          tileColor: Color.fromARGB(255, 240, 240, 240),
-                          title: Text("Player A - Score: 100")),
-                      Padding(padding: EdgeInsets.only(bottom: 5.0)),
-                      ListTile(
-                          tileColor: Color.fromARGB(255, 240, 240, 240),
-                          title: Text("Player B - Score: 90")),
+                      // ListTile(
+                      //     tileColor: Color.fromARGB(255, 240, 240, 240),
+                      //     title: Text("Player A - Score: 100")),
+                      // Padding(padding: EdgeInsets.only(bottom: 5.0)),
+                      // ListTile(
+                      //     tileColor: Color.fromARGB(255, 240, 240, 240),
+                      //     title: Text("Player B - Score: 90")),
                       // Add more leaderboard items
                     ],
                   ),
